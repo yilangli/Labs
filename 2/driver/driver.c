@@ -20,6 +20,10 @@ struct pci_device_id kyouko3_dev_id[]{
 	{0}
 };
 
+
+int kyouko3_probe(struct pci_dev *pci_dev, const struct pci_device_id *pci_id);
+void kyouko3_remove(struct pci_dev *pci_dev);
+
 struct pci_driver kyouko3_pci_dri = {
 	.name= "whatever",
 	.id_table= kyouko3_dev_id,
