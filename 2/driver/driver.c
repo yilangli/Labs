@@ -34,10 +34,12 @@ struct video_card {
 	unsigned int* k_ram_card_base;
 } kyouko3;
 
+
 int kyouko3_probe(struct pci_dev *pci_dev, const struct pci_device_id *pci_id){
+	printk(KERN_ALERT "kyouko3_probe\n");
+	pci_enable_device(pci_dev)
 	kyouko3.p_control_base = pci_resource_start(pci_dev, 1);
 	kyouko3.p_ram_card_base = pci_resource_start(pci_dev, 2);
-	pci_enable_device(pci_dev)
 	pci_set_master(pci_dev);
 	printk(KERN_ALERT "P_CONTROL_BASE: %X\n ", kyouko3.p_control_base);
 	printk(KERN_ALERT "P_RAM_CARD_BASE: %X\n", kyouko3.p_ram_card_base);
