@@ -28,7 +28,7 @@ struct pci_driver kyouko3_pci_dri = {
 	.name= "whatever",
 	.id_table= kyouko3_dev_id,
 	.probe= kyouko3_probe,
-	.remove= kyouko3_remove;
+	.remove= kyouko3_remove
 };
 
 struct video_card {
@@ -59,6 +59,7 @@ unsigned int K_READ_REG(unsigned int reg){
 	unsigned int value;
 	delay();
 	value = *(kyouko3.k_control_base+(reg>>2));
+	return value;
 }
 
 void K_WRITE_REG(unsigned int reg, unsigned int value){
@@ -73,13 +74,13 @@ int kyouko3_mmap(struct file *fp, struct vm_area_struct *vma){
 }
 
 int kyouko3_open(struct inode *inode, struct file *fp){
-	printk(KERN_ALERT "kyouko3_open\n");a
+	printk(KERN_ALERT "kyouko3_open\n");
 	kyouko3.k_control_base = ioremap(kyouko3.p_control_base, KYOUKO3_CONTROL_SIZE);
 	int ram_size;
 	ram_size = K_READ_REG(Device_RAM);
 	printk(KERN_ALERT "kernel: ram_size in MB is %d\n", ram_size);
 	ram_size*=(1024*2014);
-	kyouko3.k_ram_card_base = ioremap(kyouko.p_ram_card_base, ram_size);
+	kyouko3.k_ram_card_base = ioremap(kyouko3.p_ram_card_base, ram_size);
 	return 0;
 }
 
