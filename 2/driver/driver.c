@@ -16,9 +16,9 @@ MODULE_AUTHOR("YILANGLI");
 
 struct cdev whatever;
 
-struct pci_device_id kyouko3_dev_id[]{
+struct pci_device_id kyouko3_dev_id[]={
 	{PCI_DEVICE(PCI_VENDOR_ID_CCORSI, PCI_DEVICE_ID_CCORSI_KYOUKO3)},
-	{0}
+	{0},
 };
 
 
@@ -70,7 +70,7 @@ void K_WRITE_REG(unsigned int reg, unsigned int value){
 
 int kyouko3_mmap(struct file *fp, struct vm_area_struct *vma){
 	int ret;
-	ret = io_remap_pfn_range(vma, vma->vm_start, (unsigned int)(kyouko3.pci_dev)>>PAGE_SHIFT, vma->vm_end-vma->vm_start, vma->vm_page_prot);
+	ret = io_remap_pfn_range(vma, vma->vm_start, (unsigned int)(kyouko3.p_control_base)>>PAGE_SHIFT, vma->vm_end-vma->vm_start, vma->vm_page_prot);
 	return ret;
 }
 
