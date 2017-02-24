@@ -11,8 +11,8 @@ struct u_kyouko_device {
 #define KYOUKO3_CONTROL_SIZE  (65536)
 #define Device_RAM  (0X0020)
 
-unsigned int U_READ_REG(unsigned int register){
-	reurn (*(kyouko3.u_control_base+(register>>2)));
+unsigned int U_READ_REG(unsigned int reg){
+	reurn (*(kyouko3.u_control_base+(reg>>2)));
 }
 
 int main(){
