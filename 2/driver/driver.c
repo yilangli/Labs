@@ -4,6 +4,7 @@
 #include <linux/kernel_stat.h>
 #include <linux/fs.h>
 #include <linux/cdev.h>
+#include <linux/pci.h>
 
 MODULE_LICENSE("Proprietary");
 MODULE_AUTHOR("YILANGLI");
@@ -41,7 +42,7 @@ struct video_card {
 
 int kyouko3_probe(struct pci_dev *pci_dev, const struct pci_device_id *pci_id){
 	printk(KERN_ALERT "kyouko3_probe\n");
-	pci_enable_device(pci_dev)
+	pci_enable_device(pci_dev);
 	kyouko3.p_control_base = pci_resource_start(pci_dev, 1);
 	kyouko3.p_ram_card_base = pci_resource_start(pci_dev, 2);
 	pci_set_master(pci_dev);
