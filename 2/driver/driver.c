@@ -58,13 +58,13 @@ void kyouko3_remove(struct pci_dev *pci_dev){
 
 unsigned int K_READ_REG(unsigned int reg){
 	unsigned int value;
-	delay();
+	rmb();
 	value = *(kyouko3.k_control_base+(reg>>2));
 	return value;
 }
 
 void K_WRITE_REG(unsigned int reg, unsigned int value){
-	delay();
+	rmb();
 	*(kyouko3.k_control_base+(reg>>2)) = value;
 }
 
@@ -77,7 +77,7 @@ int kyouko3_mmap(struct file *fp, struct vm_area_struct *vma){
 int kyouko3_open(struct inode *inode, struct file *fp){
 	printk(KERN_ALERT "kyouko3_open\n");
 	kyouko3.k_control_base = ioremap(kyouko3.p_control_base, KYOUKO3_CONTROL_SIZE);
-	int ram_size;
+	unsigned int ram_size;
 	ram_size = K_READ_REG(Device_RAM);
 	printk(KERN_ALERT "kernel: ram_size in MB is %d\n", ram_size);
 	ram_size*=(1024*2014);
